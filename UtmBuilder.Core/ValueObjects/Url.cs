@@ -28,19 +28,15 @@ public class Url : ValueObject
     /// 
     public UtmParameters GetSegments ()
     {
-        var segments = Address.Split("?");
+        var parsedUrl = Address.Split('?')[1];
+        var queryParams = HttpUtility.ParseQueryString(parsedUrl);
 
-        if ( segments.Length == 1 )
-            throw new InvalidUrlException();
-        var uri = new Uri(Address);
-        var queryParams = HttpUtility.ParseQueryString(uri.Query);
-
-        var source = queryParams[$"{UtmKey.UtmSource}"] ?? string.Empty;
-        var medium = queryParams[$"{UtmKey.UtmMedium}"] ?? string.Empty;
-        var name = queryParams[$"{UtmKey.UtmCampaign}"] ?? string.Empty;
-        var id = queryParams[$"{UtmKey.UtmId}"];
-        var term = queryParams[$"{UtmKey.UtmTerm}"];
-        var content = queryParams[$"{UtmKey.UtmContent}"];
+        var source = queryParams["utm_source"] ?? string.Empty;
+        var medium = queryParams["utm_medium"] ?? string.Empty;
+        var name = queryParams["utm_campaign"] ?? string.Empty;
+        var id = queryParams["utm_id"];
+        var term = queryParams["utm_term"];
+        var content = queryParams["utm_content"];
 
         return new UtmParameters( source, medium, name, id, term, content );
     }

@@ -7,7 +7,7 @@ public partial class InvalidUrlException (
 {
     private const string DefaultErrorMessage = "Invalid URL";
     [GeneratedRegex(
-        "^(http|https):(\\/\\/www\\.|\\/\\/www\\.|\\/\\/|\\/\\/)[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$|(http|https):(\\/\\/localhost:\\d*|\\/\\/127\\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5]))(:[0-9]{1,5})?(\\/.*)?$" )]
+        "^(http|https):\\/\\/[^\\/\\s]+\\/?\\?(?=.*utm_source=[^&]+)(?=.*utm_medium=[^&]+)(?=.*utm_campaign=[^&]+)(?=.*utm_id=[^&]*)?(?=.*utm_term=[^&]*)?(?=.*utm_content=[^&]*)?.*" )]
     private static partial Regex UrlRegex ();
     /// <summary>
     /// Throws an InvalidUrlException if the item is null or empty or not a valid URL.
