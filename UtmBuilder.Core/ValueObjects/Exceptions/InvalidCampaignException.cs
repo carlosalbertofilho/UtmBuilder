@@ -14,7 +14,7 @@ public partial class InvalidCampaignException (
              string? item,
              string message = DefaultMessage)
     {
-        if ( string.IsNullOrEmpty(item) )
+        if ( string.IsNullOrWhiteSpace( item) )
             throw new InvalidCampaignException( message );
     }
 }

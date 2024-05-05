@@ -36,24 +36,10 @@ public class Utm (
     /// <param name="url"></param>
     public static implicit operator Utm ( string url )
     {
-        if ( string.IsNullOrEmpty( url ) )
-            throw new InvalidUrlException();
-
         var uri = new Url( url );
-        var (source,
-            medium,
-            name,
-            id,
-            term,
-            content) = uri.GetSegments();
-
-        if ( source == null || medium == null || name == null )
-            throw new InvalidUrlException( "A URL fornecida não contém os parâmetros UTM obrigatórios (source, medium, campaign)." );
-
-        var campaign = new Campaign(source, medium, name, id, term, content);
+        var campaign = new Campaign(uri);
 
         return new Utm( uri, campaign );
-
     }
 
     /// <summary>
