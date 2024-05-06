@@ -67,7 +67,8 @@ public class Campaign : ValueObject
 
     /// <summary>
     /// Generate a new campaign for a URL object
-    /// <paramref name="address"/>The URL object</summary>
+    /// </summary>
+    /// <paramref name="address"/>The URL object</param>
     /// 
     public Campaign ( Url address )
     {
