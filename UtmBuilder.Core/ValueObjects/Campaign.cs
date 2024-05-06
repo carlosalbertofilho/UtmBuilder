@@ -67,15 +67,16 @@ public class Campaign : ValueObject
 
     /// <summary>
     /// Generate a new campaign for a URL object
-    /// <paramref name="uri"/>The URL object</summary>
+    /// <paramref name="address"/>The URL object</summary>
     /// 
-    public Campaign ( Url uri )
+    public Campaign ( Url address )
     {
-        var (source, medium, name, id, term, content) = uri.GetSegments();
-
-        InvalidCampaignException.ThrowIfINull( source, "Source cannot be null or empty." );
-        InvalidCampaignException.ThrowIfINull( medium, "Medium cannot be null or empty." );
-        InvalidCampaignException.ThrowIfINull( name, "Name cannot be null or empty." );
+        var (source,
+            medium,
+            name,
+            id,
+            term,
+            content) = address.GetSegments();
 
         Source = source;
         Medium = medium;
