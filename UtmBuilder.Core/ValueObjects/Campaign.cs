@@ -53,24 +53,23 @@ public class Campaign : ValueObject
         string? term = null,
         string? content = null )
     {
+        InvalidCampaignException.ThrowIfINull( source, "Source cannot be null or empty" );
+        InvalidCampaignException.ThrowIfINull( medium, "Medium cannot be null or empty" );
+        InvalidCampaignException.ThrowIfINull( name, "Name cannot be null or empty" );
+
         Source = source;
         Medium = medium;
         Name = name;
         Id = id;
         Term = term;
         Content = content;
-
-        InvalidCampaignException.ThrowIfINull( source, "Source cannot be null or empty" );
-        InvalidCampaignException.ThrowIfINull( medium, "Medium cannot be null or empty" );
-        InvalidCampaignException.ThrowIfINull( name, "Name cannot be null or empty" );
     }
 
     /// <summary>
     /// Generate a new campaign for a URL object
     /// <paramref name="uri"/>The URL object</summary>
     /// 
-    public Campaign (
-        Url uri )
+    public Campaign ( Url uri )
     {
         var (source, medium, name, id, term, content) = uri.GetSegments();
 

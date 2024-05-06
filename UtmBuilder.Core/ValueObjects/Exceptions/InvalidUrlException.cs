@@ -5,7 +5,7 @@ namespace UtmBuilder.Core.ValueObjects.Extensions;
 public partial class InvalidUrlException (
     string message = InvalidUrlException.DefaultErrorMessage ) : Exception( message )
 {
-    private const string DefaultErrorMessage = "Invalid URL";
+    private const string DefaultErrorMessage = "URL format is invalid";
     [GeneratedRegex(
         "^(http|https):\\/\\/[^\\/\\s]+\\/?\\?(?=.*utm_source=[^&]+)(?=.*utm_medium=[^&]+)(?=.*utm_campaign=[^&]+)(?=.*utm_id=[^&]*)?(?=.*utm_term=[^&]*)?(?=.*utm_content=[^&]*)?.*" )]
     private static partial Regex UrlRegex ();
@@ -20,11 +20,11 @@ public partial class InvalidUrlException (
         string address,
         string message = DefaultErrorMessage )
     {
-        if ( string.IsNullOrEmpty( address ) )
+        if ( string.IsNullOrWhiteSpace( address ) )
             throw new InvalidUrlException( message );
 
         if ( !UrlRegex().IsMatch( address ) )
-            throw new InvalidUrlException();
+            throw new InvalidUrlException("The Url not contains UTM valid parameters");
     }
 
 }

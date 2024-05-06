@@ -6,7 +6,6 @@ namespace UtmBuilder.Core.Test.ValueObjects;
 [TestClass]
 public class UrlTests
 {
-    private const string InvalidUrl = "https://balta.io";
     private const string ValidUrl = "https://balta.io" +
         "?utm_source=source" +
         "&utm_medium=medium" +
@@ -19,9 +18,14 @@ public class UrlTests
     [TestMethod( "It should return an exception if the url is invalid" )]
     [TestCategory( "ValueObjects/Url" )]
     [ExpectedException( typeof( InvalidUrlException ) )]
-    public void ItShouldRetornExceptionIfTheUrlIsInvalid ()
+    [DataRow( " " )]
+    [DataRow( "Bamama" )]
+    [DataRow( "https://balta.io" )]
+    [DataRow( "https://balta.io?utm_source=source" )]
+    [DataRow( "https://balta.io?utm_source=source&utm_medium=medium" )]
+    public void ItShouldRetornExceptionIfTheUrlIsInvalid (string invalidUrl)
     {
-        new Url( InvalidUrl );
+        _ = new Url( invalidUrl );
     }
 
     [TestMethod( "It should not return an exception if the url is valid" )]
