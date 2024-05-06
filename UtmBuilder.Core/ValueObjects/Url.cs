@@ -11,25 +11,38 @@ public class Url : ValueObject
     /// </summary>
     public string Address { get; }
 
+    /// <summary>
+    /// Domain URL
+    /// </summary>
+    public string DomainUrl { get; }
+
+    /// <summary>
+    /// Query String contains the UTM parameters
+    /// </summary>
+    public string QueryString { get; }
+
     /// <summary>s
     /// Create a new URL
     /// </summary>
     /// <param name="address">Address of URL (Website link)</param>
+    /// 
     public Url (
         string address )
     {
-        Address = address;
         InvalidUrlException.ThrowIfInvalid( address, "Address cannot be null or empty" );
+        Address = address;
+        DomainUrl = Address.Split( '?' )[ 0 ];
+        QueryString = Address.Split( '?' )[ 1 ];
     }
 
     /// <summary>
     /// return the segments of the URL
     /// case the URL is invalid thorws an InvalidUrlException
-    /// 
+    /// </summary>
     public UtmParameters GetSegments ()
     {
-        var parsedUrl = Address.Split('?')[1];
-        var queryParams = HttpUtility.ParseQueryString(parsedUrl);
+
+        var queryParams = HttpUtility.ParseQueryString(QueryString);
 
         var source = queryParams["utm_source"] ?? string.Empty;
         var medium = queryParams["utm_medium"] ?? string.Empty;

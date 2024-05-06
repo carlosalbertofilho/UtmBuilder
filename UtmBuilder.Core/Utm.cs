@@ -25,7 +25,7 @@ public class Utm (
 
     /// <summary>
     /// Cast UTM to string in implicit conversion
-    /// 
+    /// </summary>  
     public static implicit operator string ( Utm utm )
         => utm.ToString();
 
@@ -34,6 +34,7 @@ public class Utm (
     /// Cast URL to UTM in implicit conversion
     /// </summary>
     /// <param name="url"></param>
+    /// 
     public static implicit operator Utm ( string url )
     {
         var uri = new Url( url );
@@ -44,18 +45,18 @@ public class Utm (
 
     /// <summary>
     /// Cast UTM to string
-    /// 
+    /// </summary>
     public override string ToString ()
     {
         var segment = new List<string>
-    {
-        $"{UtmKey.UtmSource}={Campaign.Source}",
-        $"{UtmKey.UtmMedium}={Campaign.Medium}",
-        $"{UtmKey.UtmCampaign}={Campaign.Name}",
-        $"{UtmKey.UtmId}={Campaign.Id}",
-        $"{UtmKey.UtmTerm}={Campaign.Term}",
-        $"{UtmKey.UtmContent}={Campaign.Content}"
-    };
-        return $"{Url.Address}?{string.Join( "&", segment )}";
+        {
+            $"utm_source={Campaign.Source}",
+            $"utm_medium={Campaign.Medium}",
+            $"utm_campaign={Campaign.Name}",
+            $"utm_id={Campaign.Id}",
+            $"utm_term={Campaign.Term}",
+            $"utm_content={Campaign.Content}"
+        };
+        return $"{Url.DomainUrl}?{string.Join( "&", segment )}";
     }
 }
